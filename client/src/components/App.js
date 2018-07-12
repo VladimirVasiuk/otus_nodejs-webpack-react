@@ -6,13 +6,25 @@ const Header = (props) => (
     </div>
 );
 
-const App = () => {
-  return <div>
-    <Header title="ШАПКА САЙТА"/>
-    <h3>Hello World!</h3>
-  </div>
+export default class App extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {text: ''};
+    }
+
+    componentDidMount() {
+        fetch('/text')
+            .then(res => res.json())
+            .then(json => this.setState({
+                text: json.text
+            }))
+    }
+
+    render() {
+        return <div>
+            <Header title="ШАПКА САЙТА"/>
+            <h3>{this.state.text}</h3>
+        </div>
+    }
 };
-
-export default App
-
-
